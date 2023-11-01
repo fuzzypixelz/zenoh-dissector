@@ -62,13 +62,15 @@ jobs:
               ;;
           esac
           echo "PKG_NAME=${PKG_NAME}" >> $GITHUB_OUTPUT
+          envsubst < ${GITHUB_WORKSPACE}/.github/workflows/release-note.md > release-note.md
 
       - name: Release
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+        # if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           prerelease: true
           files: ${{ steps.package.outputs.PLUGIN_NAME }}
+          body_path: release-note.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
