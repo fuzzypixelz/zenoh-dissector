@@ -83,7 +83,7 @@ jobs:
           esac
           echo "PKG_NAME=${PKG_NAME}" >> $GITHUB_OUTPUT
           export PKG_VER=v$(cargo pkgid | cut -d "#" -f2)
-          export ZENOH_VER=v$(cargo metadata | jq '.packages[] | select(.name == "zenoh-protocol") | .version')
+          export ZENOH_VER=v$(cargo metadata | jq -r '.packages[] | select(.name == "zenoh-protocol") | .version')
           envsubst < ${GITHUB_WORKSPACE}/.github/workflows/release-note.md > release-note.md
 
       - name: Release
