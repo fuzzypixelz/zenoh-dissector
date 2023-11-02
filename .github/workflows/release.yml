@@ -68,7 +68,7 @@ jobs:
         shell: bash
         run: |
           TARGET=${{ matrix.job.target }}
-          PKG_VER=v$(cargo pkgid | cut -d "#" -f2)
+          export PKG_VER=v$(cargo pkgid | cut -d "#" -f2)
           PKG_NAME="${GITHUB_WORKSPACE}/zenoh-dissector-${PKG_VER}-${TARGET}.zip"
           echo "Packaging ${PKG_NAME}:"
           case ${TARGET} in

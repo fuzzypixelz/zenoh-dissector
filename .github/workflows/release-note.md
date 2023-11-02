@@ -1,5 +1,6 @@
 ```
-Zenoh Dissector v${PKG_VER}
+Zenoh Dissector: v${PKG_VER}
+Zenoh Protocol: v${ZENOH_VER}
 ```
 
 ## Installation
@@ -17,15 +18,15 @@ cp libzenoh_dissector.so ~/.local/lib/wireshark/plugins/4.0/epan/libzenoh_dissec
 
 ```bash
 mkdir -p ~/.local/lib/wireshark/plugins/4-0/epan
-cp libzenoh_dissector.dylib ~/.local/lib/wireshark/plugins/4-0/epan/libzenoh_dissector.so
+cp libzenoh_dissector.so ~/.local/lib/wireshark/plugins/4-0/epan/libzenoh_dissector.so
 ```
 
 ### Windows
 
 ```powershell
-\$epan_dir = "\$Env:APPDATA\Wireshark\plugins\4.0\epan"
-if (-Not (Test-Path \$epan_dir)) {
-    mkdir -p \$epan_dir
+$${empty}epan_dir = "$${empty}Env:APPDATA\Wireshark\plugins\4.0\epan"
+if (-Not (Test-Path $${empty}epan_dir)) {
+    mkdir -p $${empty}epan_dir
 }
-cp zenoh_dissector.dll \$epan_dir
+cp zenoh_dissector.dll $${empty}epan_dir
 ```
