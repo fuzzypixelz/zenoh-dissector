@@ -93,7 +93,8 @@ jobs:
           draft: true
           prerelease: true
           files: ${{ steps.package.outputs.PKG_NAME }}
-          generate_release_notes: true
           body_path: release-note.md
+          generate_release_notes: true
+          append_body: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
