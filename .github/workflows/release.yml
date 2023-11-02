@@ -79,6 +79,7 @@ jobs:
               zip -j ${PKG_NAME} target/release/libzenoh_dissector.so
               ;;
             *windows*)
+              PKG_NAME="${PKG_NAME//\\//}"
               zip -j ${PKG_NAME} target/release/zenoh_dissector.dll
               ;;
           esac
