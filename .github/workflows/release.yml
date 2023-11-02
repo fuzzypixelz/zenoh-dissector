@@ -76,7 +76,8 @@ jobs:
               zip -j ${PKG_NAME} target/release/libzenoh_dissector.so
               ;;
             *apple*)
-              zip -j ${PKG_NAME} target/release/libzenoh_dissector.dylib
+              mv target/release/libzenoh_dissector.dylib target/release/libzenoh_dissector.so
+              zip -j ${PKG_NAME} target/release/libzenoh_dissector.so
               ;;
             *windows*)
               zip -j ${PKG_NAME} target/release/zenoh_dissector.dll
@@ -91,7 +92,8 @@ jobs:
         with:
           draft: true
           prerelease: true
-          files: ${{ steps.package.outputs.PLUGIN_NAME }}
+          files: ${{ steps.package.outputs.PKG_NAME }}
+          generate_release_notes: true
           body_path: release-note.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
