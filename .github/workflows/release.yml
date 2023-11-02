@@ -11,6 +11,7 @@
 # Contributors:
 #   ZettaScale Zenoh Team, <zenoh@zettascale.tech>
 #
+
 name: Release
 
 on:
@@ -86,19 +87,13 @@ jobs:
           export ZENOH_VER=$(cargo metadata | jq -r '.packages[] | select(.name == "zenoh-protocol") | .version')
           envsubst < ${GITHUB_WORKSPACE}/.github/workflows/release-note.md > release-note.md
 
-      - name: Build Changelog
-        id: github_release
-        uses: mikepenz/release-changelog-builder-action@v3
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           draft: true
           prerelease: true
           files: ${{ steps.package.outputs.PKG_NAME }}
-          body:  ${{ steps.github_release.outputs.changelog }}
+          generate_release_notes: true
           body_path: release-note.md
           append_body: true
         env:
