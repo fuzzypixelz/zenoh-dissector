@@ -1,6 +1,6 @@
 ```
-Zenoh Dissector: v${PKG_VER}
-Zenoh Protocol: v${ZENOH_VER}
+Zenoh Dissector: ${PKG_VER}
+Zenoh Protocol: ${ZENOH_VER}
 ```
 
 ## Installation
