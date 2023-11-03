@@ -83,14 +83,12 @@ jobs:
               zip -j ${PKG_NAME} target/release/zenoh_dissector.dll
               ;;
           esac
-          ls ${GITHUB_WORKSPACE}
-          file ${GITHUB_WORKSPACE}/${{ matrix.job.target }}.zip
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.job.target }}
-          path: ${GITHUB_WORKSPACE}/${{ matrix.job.target }}.zip
+          path: ${{ matrix.job.target }}.zip
           if-no-files-found: error
 
   publish:
@@ -105,8 +103,6 @@ jobs:
 
       - name: Generate the release note
         run: |
-          sudo apt install -y tree
-          tree
           echo "Compute sha256sum"
           mkdir zip_files
           cp ARTIFACTS/*/*.zip zip_files
