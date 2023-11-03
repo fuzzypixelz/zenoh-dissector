@@ -89,6 +89,7 @@ jobs:
         with:
           name: ${{ matrix.job.target }}
           path: ${GITHUB_WORKSPACE}/${{ matrix.job.target }}.zip
+          if-no-files-found: error
 
   publish:
     name: Release publication
