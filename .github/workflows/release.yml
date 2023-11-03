@@ -102,6 +102,7 @@ jobs:
 
       - name: Generate the release note
         run: |
+          sudo apt install -y tree
           tree
           echo "Compute sha256sum"
           mkdir zip_files
