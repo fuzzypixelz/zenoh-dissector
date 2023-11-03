@@ -83,6 +83,8 @@ jobs:
               zip -j ${PKG_NAME} target/release/zenoh_dissector.dll
               ;;
           esac
+          ls ${GITHUB_WORKSPACE}
+          file ${GITHUB_WORKSPACE}/${{ matrix.job.target }}.zip
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
