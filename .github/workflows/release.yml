@@ -83,7 +83,32 @@ jobs:
               zip -j ${PKG_NAME} target/release/zenoh_dissector.dll
               ;;
           esac
-          echo "PKG_NAME=${PKG_NAME}" >> $GITHUB_OUTPUT
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.job.target }}
+          path: ${GITHUB_WORKSPACE}/${{ matrix.job.target }}.zip
+
+  publish:
+    runs-on: [ self-hosted, ubuntu-20.04 ]
+    steps:
+      - name: Download the artifacts of previous builds
+        uses: actions/download-artifact@v3
+        with:
+          path: ARTIFACTS
+
+      - name: Generate the release note
+        run: |
+          echo "Compute sha256sum"
+          mkdir zip_files
+          cp ARTIFACTS/*/*.zip zip_files
+          cd zip_files
+          export SHA256SUM=$(sha256sum *.zip)
+          echo -e "$SHA256SUM"
+          cd -
+
+          echo "Record zenoh version"
           export PKG_VER=$(cargo pkgid | cut -d "#" -f2)
           export ZENOH_VER=$(cargo metadata | jq -r '.packages[] | select(.name == "zenoh-protocol") | .version')
           envsubst < ${GITHUB_WORKSPACE}/.github/workflows/release-note.md > release-note.md
@@ -93,7 +118,7 @@ jobs:
         with:
           draft: true
           prerelease: true
-          files: ${{ steps.package.outputs.PKG_NAME }}
+          files: ARTIFACTS/*/*.zip
           generate_release_notes: true
           body_path: release-note.md
           append_body: true

@@ -30,3 +30,9 @@ if (-Not (Test-Path $${empty}epan_dir)) {
 }
 cp zenoh_dissector.dll $${empty}epan_dir
 ```
+
+## SHA256 Checksums
+
+```txt
+$SHA256SUM
+```
